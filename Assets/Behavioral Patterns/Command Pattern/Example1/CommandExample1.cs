@@ -126,27 +126,27 @@ namespace CommandExample1
     class User
     {
         // Initializers
-        private Calculator _calculator = new Calculator();
-        private List<Command> _commands = new List<Command>();
+        private Calculator _calculator = new Calculator();//用计算类去登记Command
+        private List<Command> _commands = new List<Command>();//每个Commend 去实现自己的操作类的Undo撤回命令
         private int _current = 0;
 
         public void Redo(int levels)
         {
-            for (int i = 0; i < levels; i++)
+            for (int i = 0; i < levels; i++)    //读多少次数
             {
                 if (_current < _commands.Count - 1)
                 {
-                    Command command = _commands[_current++];
+                    Command command = _commands[_current++];//按照标记位去读 （用栈比较合适一点）
                     command.Execute();
                 }
             }
         }
 
-        public void Undo(int levels)
+        public void Undo(int levels)    //读多少次数
         {
             Debug.Log("\n---- Undo "+ levels + " levels");
             // Perform undo operations
-            for (int i = 0; i < levels; i++)
+            for (int i = 0; i < levels; i++)  //撤回操作
             {
                 if (_current > 0)
                 {
